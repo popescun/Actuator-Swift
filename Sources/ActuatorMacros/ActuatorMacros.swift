@@ -11,7 +11,8 @@
               named(Actuator4),
               named(Actuator5),
               named(Actuator6),
-              named(Actuator7))
+              named(Actuator7),
+              named(Actuator8))
 public macro ActuatorWithParameters(_ : Array<String>) = #externalMacro(module: "ActuatorMacrosImplementation", type: "ActuatorWithParameters")
 
 @freestanding(declaration, names: named(Actuator1),
@@ -20,6 +21,7 @@ public macro ActuatorWithParameters(_ : Array<String>) = #externalMacro(module: 
               named(Actuator4),
               named(Actuator5),
               named(Actuator6),
-              named(Actuator7))
+              named(Actuator7),
+              named(Actuator8))
 public macro Actuator(_ : Int) = #externalMacro(module: "ActuatorMacrosImplementation", type: "Actuator")
 
