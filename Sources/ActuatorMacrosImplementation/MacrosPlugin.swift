@@ -12,6 +12,7 @@ import SwiftSyntaxMacros
 struct MacroExamplePlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         ActuatorWithParameters.self,
-        Actuator.self
+        Actuator.self,
+        FooMethodImpl.self,
     ]
 }
