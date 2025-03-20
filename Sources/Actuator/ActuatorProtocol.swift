@@ -29,6 +29,15 @@ extension ActuatorProtocol {
     public mutating func connect(_ actions: [Action]) {
         self.actions += actions
     }
+    
+    @inlinable
+    public mutating func remove(_ action: Action) {
+        for act in actions {
+//            if act == action {
+//                
+//            }
+        }
+    }
 
     @inlinable
     public func forEach(_ body: (Action) throws -> Void) rethrows {

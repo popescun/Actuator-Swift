@@ -6,6 +6,7 @@
 //
 
 import ActuatorMacros
+import Foundation
 
 #Actuator(1)
 // Alternatively you can use macro with parameters. It expends the same as #Actuator(1).

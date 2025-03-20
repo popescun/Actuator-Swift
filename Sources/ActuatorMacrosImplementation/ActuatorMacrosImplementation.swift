@@ -185,16 +185,21 @@ public struct Actuator: DeclarationMacro {
             """
             public struct Actuator\(raw: arguments.count)<\(raw: signature)>: ActuatorProtocol {
                 // implement ActuatorProtocol
-                public typealias Action = (\(raw: arity)) -> \(raw: returnElement)
-
+                public typealias Action = IdentifiableAction
+            
                 public var actions: Array<Action> = []
 
                 // define invoke method for this arity
                 func callAsFunction(\(raw: callSignature)) {
                   forEach {
-                    let ret = $0(\(raw: forEachSignature))
+                    let ret = $0.action(\(raw: forEachSignature))
                     // print(ret)
                   }
+                }
+            
+                public struct IdentifiableAction {
+                    var action: (\(raw: arity)) -> \(raw: returnElement)
+                    var id = UUID()
                 }
             }
             """
