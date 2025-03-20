@@ -197,6 +197,10 @@ public struct Actuator: DeclarationMacro {
                   }
                 }
             
+                public mutating func remove(action: Action) {
+                    self.actions.removeAll(where: { $0.id == action.id })
+                }
+            
                 public struct IdentifiableAction {
                     var action: (\(raw: arity)) -> \(raw: returnElement)
                     var id = UUID()

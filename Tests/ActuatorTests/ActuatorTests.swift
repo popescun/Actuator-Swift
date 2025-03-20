@@ -47,56 +47,51 @@ final class ActuatorTests: XCTestCase {
         actuator.actions += [Actuator1.Action(action: c.action)]
         actuator(11)
         waitForExpectations(timeout: 0)
-        
-        for action in actuator.actions {
-            print("id:", action.id)
-        }
-        
-        // actuator with identifiable actions
-//        var actuator1 = Actuator1<Void, Int>([Actuator1.ActionWrapper(action: a.action)])
-//        print("id:", actuator1.actions1[0].id)
     }
     
-//    func testCopy() throws {
-//        let a = A()
-//        let b = B()
-//        let c = C()
-//    
-//        Expectation.value = expectation(description: "actuator copy")
-//        Expectation.value.expectedFulfillmentCount = 3
-//        var actuator = Actuator1<Void, Int>()
-//        actuator.connect([a.action, b.action, c.action])
-//        actuator(10)
-//        waitForExpectations(timeout: 0)
-//    }
-//    
-//    func testAdd() throws {
-//        let a = A()
-//        let b = B()
-//        let c = C()
-//    
-//        Expectation.value = expectation(description: "actuator add")
-//        Expectation.value.expectedFulfillmentCount = 4
-//        var actuator = Actuator1<Void, Int>()
-//        actuator.connect([a.action, b.action, c.action])
-//        actuator.actions += [a.action]
-//        actuator(10)
-//        waitForExpectations(timeout: 0)
-//    }
-//    
-//    func testRemove() throws {
-//        let a = A()
-//        let b = B()
-//        let c = C()
-//    
-//        Expectation.value = expectation(description: "actuator add")
-//        Expectation.value.expectedFulfillmentCount = 2
-//        var actuator = Actuator1<Void, Int>()
-//        actuator.connect([a.action, b.action, c.action])
-//        actuator.actions.remove(at: 0)
-//        actuator(10)
-//        waitForExpectations(timeout: 0)
-//    }
+    func testCopy() throws {
+        let a = A()
+        let b = B()
+        let c = C()
+    
+        Expectation.value = expectation(description: "actuator copy")
+        Expectation.value.expectedFulfillmentCount = 3
+        var actuator = Actuator1<Void, Int>()
+        actuator.connect([Actuator1.Action(action: a.action), Actuator1.Action(action: b.action), Actuator1.Action(action: c.action)])
+        actuator(10)
+        waitForExpectations(timeout: 0)
+    }
+    
+    func testAdd() throws {
+        let a = A()
+        let b = B()
+        let c = C()
+    
+        Expectation.value = expectation(description: "actuator add")
+        Expectation.value.expectedFulfillmentCount = 4
+        var actuator = Actuator1<Void, Int>()
+        actuator.connect([Actuator1.Action(action: a.action), Actuator1.Action(action: b.action), Actuator1.Action(action: c.action)])
+        actuator.actions += [Actuator1.Action(action: a.action)]
+        actuator(10)
+        waitForExpectations(timeout: 0)
+    }
+    
+    func testRemove() throws {
+        let a = A()
+        let b = B()
+        let c = C()
+    
+        Expectation.value = expectation(description: "actuator add")
+        Expectation.value.expectedFulfillmentCount = 2
+        var actuator = Actuator1<Void, Int>()
+        let action1 = Actuator1.Action(action: a.action)
+        let action2 = Actuator1.Action(action: b.action)
+        let action3 = Actuator1.Action(action: c.action)
+        actuator.connect([action1, action2, action3])
+        actuator.remove(action: action1)
+        actuator(10)
+        waitForExpectations(timeout: 0)
+    }
 }
 
 protocol P {
