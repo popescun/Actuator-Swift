@@ -10,30 +10,10 @@ import Foundation
 protocol ActuatorProtocol {
 
     associatedtype Action
-
-    var actions: [Action] { get set }
+    
+    var Actions : [Action] { get }
 
     init()
-}
-
-extension ActuatorProtocol {
-
-    @inlinable
-    init(_ actions: [Action]) {
-        // preventing error:  'self.init' isn't called on all paths before returning from initializer
-        self.init()
-        self.actions += actions
-    }
-
-    @inlinable
-    public mutating func connect(_ actions: [Action]) {
-        self.actions += actions
-    }
-
-    @inlinable
-    public func forEach(_ body: (Action) throws -> Void) rethrows {
-        for action in actions {
-            try body(action)
-        }
-    }
+    
+    init(_ actions: [Action])
 }
