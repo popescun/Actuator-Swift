@@ -1,30 +1,14 @@
-//import SwiftSyntax
-//import SwiftCompilerPlugin
-//import SwiftSyntaxMacros
+//
+//  Actuator.swift
+//
+//
+//  Created by Nicolae Popescu on 13/02/2024.
+//
+
 import ActuatorMacros
 import XCTest
 
 @testable import Actuator
-
-//@freestanding(declaration, names: named(FooMethod))
-//public macro FooMethod(_ : Array<String>) = #externalMacro(module: "ActuatorTests", type: "FooMethodImpl")
-//
-////@main
-////struct MacroTestsPlugin: CompilerPlugin {
-////    let providingMacros: [Macro.Type] = [
-////      FooMethodImpl.self
-////    ]
-////}
-//
-//public struct FooMethodImpl: DeclarationMacro {
-//  public static func expansion(
-//    of node: some FreestandingMacroExpansionSyntax,
-//    in context: some MacroExpansionContext
-//  ) throws -> [DeclSyntax] {
-//    return ["""
-//            """]
-//  }
-//}
 
 final class ActuatorTests: XCTestCase {
     func testPolymorphism() throws {
