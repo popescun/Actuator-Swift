@@ -71,7 +71,7 @@ public struct ActuatorWithParameters: DeclarationMacro {
         }
         arity.removeLast(2)
 
-        //    print("arity:" + arity)
+        //  print("arity:" + arity)
 
         let signature = returnElement + ", " + arity
 
@@ -84,37 +84,12 @@ public struct ActuatorWithParameters: DeclarationMacro {
         callSignature.removeLast()
         forEachSignature.removeLast(2)
 
-        return [
-            """
-            public struct Actuator\(raw: arguments.count)<\(raw: signature)>: ActuatorProtocol {
-                // implement ActuatorProtocol
-                public typealias Action = IdentifiableAction
-
-                public var actions: Array<Action> = []
-            
-                public var results: Array<\(raw: returnElement)> = []
-                
-                // define invoke method for this arity
-                mutating func callAsFunction(\(raw: callSignature)) {
-                    forEach {
-                        results.removeAll()
-                        let ret = $0.action(\(raw: forEachSignature))
-                        results += [ret]
-                        // print(ret)
-                    }
-                }
-            
-                public mutating func remove(action: Action) {
-                    actions.removeAll(where: { $0.id == action.id })
-                }
-                            
-                public struct IdentifiableAction {
-                    var action: (\(raw: arity)) -> \(raw: returnElement)
-                    var id = UUID()
-                }
-            }
-            """
-        ]
+        return MacroReturn.Return(argumentsCount: arguments.count,
+                                  signature: signature,
+                                  returnElement: returnElement,
+                                  callSignature: callSignature,
+                                  forEachSignature: forEachSignature,
+                                  arity: arity)
     }
 }
 
@@ -181,10 +156,10 @@ public struct Actuator: DeclarationMacro {
         }
         arity.removeLast(2)
 
-        print("arity:" + arity)
-        //
+        // print("arity:" + arity)
+        
         let signature = returnElement + ", " + arity
-        //
+
         var callSignature: String = ""
         var forEachSignature: String = ""
         for arg in arguments {
@@ -194,9 +169,25 @@ public struct Actuator: DeclarationMacro {
         callSignature.removeLast()
         forEachSignature.removeLast(2)
 
+        return MacroReturn.Return(argumentsCount: arguments.count,
+                                  signature: signature,
+                                  returnElement: returnElement,
+                                  callSignature: callSignature,
+                                  forEachSignature: forEachSignature,
+                                  arity: arity)
+    }
+}
+
+struct MacroReturn {
+    static func Return(argumentsCount: Int,
+                       signature: String,
+                       returnElement: String,
+                       callSignature: String,
+                       forEachSignature: String,
+                       arity: String) -> [DeclSyntax] {
         return [
             """
-            public struct Actuator\(raw: arguments.count)<\(raw: signature)>: ActuatorProtocol {
+            public struct Actuator\(raw: argumentsCount)<\(raw: signature)>: ActuatorProtocol {
                 // implement ActuatorProtocol
                 public typealias Action = IdentifiableAction
             
@@ -216,7 +207,7 @@ public struct Actuator: DeclarationMacro {
                     try body(action)
                   }
                 }
-
+            
                 // define invoke method for this arity
                 mutating func callAsFunction(\(raw: callSignature)) {
                   results.removeAll()
@@ -232,7 +223,7 @@ public struct Actuator: DeclarationMacro {
                     actions
                   }
                 }
-
+            
                 public mutating func connect(_ actions: [Action]) {
                   self.actions.removeAll()
                   self.actions += actions
@@ -257,25 +248,6 @@ public struct Actuator: DeclarationMacro {
                     var id = UUID()
                 }
             }
-            """
-        ]
-    }
-}
-
-//@main
-//struct MacroTestsPlugin: CompilerPlugin {
-//    let providingMacros: [Macro.Type] = [
-//      FooMethodImpl.self
-//    ]
-//}
-
-public struct FooMethodImpl: DeclarationMacro {
-    public static func expansion(
-        of node: some FreestandingMacroExpansionSyntax,
-        in context: some MacroExpansionContext
-    ) throws -> [DeclSyntax] {
-        return [
-            """
             """
         ]
     }
