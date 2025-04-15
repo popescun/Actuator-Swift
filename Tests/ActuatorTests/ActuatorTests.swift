@@ -5,14 +5,13 @@
 //  Created by Nicolae Popescu on 13/02/2024.
 //
 
-import ActuatorMacros
 import XCTest
 
-@testable import Actuator
+import Actuator
 
 final class ActuatorTests: XCTestCase {
     func testPolymorphism() throws {
-        //using polymorphism
+        //using polymorphism§
         print("Using polymorphism:")
         Expectation.value = expectation(description: "test using polymorphism")
         Expectation.value.expectedFulfillmentCount = 3
