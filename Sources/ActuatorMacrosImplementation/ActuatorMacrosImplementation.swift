@@ -195,57 +195,62 @@ struct MacroReturn {
             
                 private var results: Array<\(raw: returnElement)> = []
             
-                init() {
+                public init() {
                 }
             
-                init(_ actions: [Action]) {
-                  self.actions += actions
+                public init(_ actions: [Action]) {
+                    self.actions += actions
                 }
             
                 func forEach(_ body: (Action) throws -> Void) rethrows {
-                  for action in actions {
-                    try body(action)
-                  }
+                    for action in actions {
+                        try body(action)
+                    }
                 }
             
                 // define invoke method for this arity
-                mutating func callAsFunction(\(raw: callSignature)) {
-                  results.removeAll()
-                  forEach {
-                    let ret = $0.action(\(raw: forEachSignature))
-                    results += [ret]
-                    // print(ret)
+                public mutating func callAsFunction(\(raw: callSignature)) {
+                    results.removeAll()
+                    forEach {
+                        let ret = $0.action(\(raw: forEachSignature))
+                        results += [ret]
+                        // print(ret)
                   }
                 }
             
                 var Actions : [Action] {
                   get {
-                    actions
+                      actions
                   }
                 }
             
                 public mutating func connect(_ actions: [Action]) {
-                  self.actions.removeAll()
-                  self.actions += actions
+                    self.actions.removeAll()
+                    self.actions += actions
                 }
             
-                mutating func add(actions: [Action]) {
-                  self.actions += actions
+                public mutating func add(actions: [Action]) {
+                    self.actions += actions
                 }
             
-                mutating func remove(action: Action) {
-                  actions.removeAll(where: { $0.id == action.id })
+                public mutating func remove(action: Action) {
+                    actions.removeAll(where: { $0.id == action.id })
                 }
             
-                var Results : Array<\(raw: returnElement)> {
+                public var Results : Array<\(raw: returnElement)> {
                   get {
-                    results
+                      results
                   }
                 }
             
                 public struct IdentifiableAction {
+                    public typealias Action = (\(raw: arity)) -> \(raw: returnElement) 
                     var action: (\(raw: arity)) -> \(raw: returnElement)
                     var id = UUID()
+            
+                    public init(action: @escaping Action) {
+                        self.action  = action    
+                    }
                 }
             }
             """
