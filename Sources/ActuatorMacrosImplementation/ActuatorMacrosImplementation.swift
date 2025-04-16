@@ -243,10 +243,10 @@ struct MacroReturn {
                   }
                 }
             
-                public struct IdentifiableAction {
+                public struct IdentifiableAction: Identifiable {
                     public typealias Action = (\(raw: arity)) -> \(raw: returnElement) 
                     var action: (\(raw: arity)) -> \(raw: returnElement)
-                    var id = UUID()
+                    public var id = UUID()
             
                     public init(action: @escaping Action) {
                         self.action  = action    
