@@ -10,8 +10,8 @@ import XCTest
 import Actuator
 
 final class ActuatorTests: XCTestCase {
-    func testPolymorphism() throws {
-        //using polymorphism§
+    @MainActor func testPolymorphism() throws {
+        //using polymorphism
         print("Using polymorphism:")
         Expectation.value = expectation(description: "test using polymorphism")
         Expectation.value.expectedFulfillmentCount = 3
@@ -32,7 +32,7 @@ final class ActuatorTests: XCTestCase {
         waitForExpectations(timeout: 0)
     }
     
-    func testCopy() throws {
+    @MainActor func testCopy() throws {
         let a = A()
         let b = B()
         let c = C()
@@ -45,7 +45,7 @@ final class ActuatorTests: XCTestCase {
         waitForExpectations(timeout: 0)
     }
     
-    func testAdd() throws {
+    @MainActor func testAdd() throws {
         let a = A()
         let b = B()
         let c = C()
@@ -59,7 +59,7 @@ final class ActuatorTests: XCTestCase {
         waitForExpectations(timeout: 0)
     }
     
-    func testRemove() throws {
+    @MainActor func testRemove() throws {
         let a = A()
         let b = B()
         let c = C()
@@ -76,7 +76,7 @@ final class ActuatorTests: XCTestCase {
         waitForExpectations(timeout: 0)
     }
     
-    func testNilActionObjectHasNoEffect() throws {
+    @MainActor func testNilActionObjectHasNoEffect() throws {
         var a : A? = A()
         let b = B()
         let c = C()
@@ -100,7 +100,7 @@ final class ActuatorTests: XCTestCase {
         waitForExpectations(timeout: 0)
     }
     
-    func testExtractResults() throws {
+    @MainActor func testExtractResults() throws {
         let a = A()
         let b = B()
         let c = C()
@@ -122,7 +122,7 @@ final class ActuatorTests: XCTestCase {
         }
     }
     
-    func testVoidReturn() throws {
+    @MainActor func testVoidReturn() throws {
         let a = A()
         let b = B()
         let c = C()
@@ -194,5 +194,5 @@ func test(list: [P], a: Int) {
 }
 
 class Expectation {
-    public static var value = XCTestExpectation(description: "none")
+    nonisolated(unsafe) public static var value = XCTestExpectation(description: "none")
 }
