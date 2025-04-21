@@ -33,8 +33,3 @@ public macro ActuatorWithParameters(_: [String]) =
     named(Actuator10))
 public macro Actuator(_: Int) =
     #externalMacro(module: "ActuatorMacrosImplementation", type: "Actuator")
-
-@freestanding(declaration, names: named(FooMethod))
-public macro FooMethod(_: [String]) =
-    #externalMacro(
-        module: "ActuatorMacrosImplementation", type: "FooMethodImpl")
