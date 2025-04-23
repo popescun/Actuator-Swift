@@ -243,6 +243,18 @@ struct MacroReturn {
                   }
                 }
             
+                public var Count : Int {
+                  get {
+                      actions.count
+                  }
+                }
+            
+                public var isConnected : Bool {
+                  get {
+                      actions.count != 0
+                  }
+                }
+            
                 public struct IdentifiableAction: Identifiable {
                     public typealias Action = (\(raw: arity)) -> \(raw: returnElement) 
                     var action: (\(raw: arity)) -> \(raw: returnElement)

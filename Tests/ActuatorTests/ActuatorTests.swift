@@ -28,6 +28,8 @@ final class ActuatorTests: XCTestCase {
         var actuator = Actuator1<Void, Int>([Actuator1.Action(action: a.action)])
         actuator.add(actions: [Actuator1.Action(action: b.action)])
         actuator.add(actions: [Actuator1.Action(action: c.action)])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(11)
         waitForExpectations(timeout: 0)
     }
@@ -41,6 +43,8 @@ final class ActuatorTests: XCTestCase {
         Expectation.value.expectedFulfillmentCount = 3
         var actuator = Actuator1<Void, Int>()
         actuator.connect([Actuator1.Action(action: a.action), Actuator1.Action(action: b.action), Actuator1.Action(action: c.action)])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(10)
         waitForExpectations(timeout: 0)
     }
@@ -55,6 +59,8 @@ final class ActuatorTests: XCTestCase {
         var actuator = Actuator1<Void, Int>()
         actuator.connect([Actuator1.Action(action: a.action), Actuator1.Action(action: b.action), Actuator1.Action(action: c.action)])
         actuator.add(actions: [Actuator1.Action(action: a.action)])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 4)
         actuator(10)
         waitForExpectations(timeout: 0)
     }
@@ -72,6 +78,8 @@ final class ActuatorTests: XCTestCase {
         let action3 = Actuator1.Action(action: c.action)
         actuator.connect([action1, action2, action3])
         actuator.remove(action: action1)
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 2)
         actuator(10)
         waitForExpectations(timeout: 0)
     }
@@ -88,6 +96,8 @@ final class ActuatorTests: XCTestCase {
         let action2 = Actuator1.Action(action: b.action)
         let action3 = Actuator1.Action(action: c.action)
         actuator.connect([action1, action2, action3])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(10)
         waitForExpectations(timeout: 0)
         
@@ -96,6 +106,8 @@ final class ActuatorTests: XCTestCase {
         Expectation.value = expectation(description: "test nil action object")
         Expectation.value.expectedFulfillmentCount = 3
         actuator.connect([action1, action2, action3])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(11)
         waitForExpectations(timeout: 0)
     }
@@ -112,6 +124,8 @@ final class ActuatorTests: XCTestCase {
         let action2 = Actuator1.Action(action: b.actionWithResult)
         let action3 = Actuator1.Action(action: c.actionWithResult)
         actuator.connect([action1, action2, action3])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(10)
         waitForExpectations(timeout: 0)
         
@@ -134,6 +148,8 @@ final class ActuatorTests: XCTestCase {
         let action2 = Actuator1.Action(action: b.action)
         let action3 = Actuator1.Action(action: c.action)
         actuator.connect([action1, action2, action3])
+        XCTAssertTrue(actuator.isConnected)
+        XCTAssertEqual(actuator.Count, 3)
         actuator(10)
         waitForExpectations(timeout: 0)
         
