@@ -6,7 +6,6 @@
 //
 
 import XCTest
-
 import Actuator
 
 final class ActuatorTests: XCTestCase {
